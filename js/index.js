@@ -95,12 +95,18 @@ class Hero extends BaseCharacter {
     // 設定補血動畫
     _this.element.getElementsByClassName("heal-text")[0].classList.add("healed");
     _this.element.getElementsByClassName("heal-text")[0].innerHTML = plusHp;
-    setTimeout(function(){
-      //關閉補血動畫
-      _this.element.getElementsByClassName("heal-text")[0].classList.remove("healed");
-      _this.element.getElementsByClassName("heal-text")[0].textContent = "";
-      clearInterval(_this.id);
-      }, 500);
+
+    _this.id= setInterval(function(){
+      _this.element.getElementsByClassName("effect-image")[0].style.display = "block";
+      _this.element.getElementsByClassName("effect-image")[0].src = 'images/effect/heal/'+ i +'.png';
+      i++;
+      if(i>8){
+        _this.element.getElementsByClassName("effect-image")[0].style.display = "none";
+        _this.element.getElementsByClassName("heal-text")[0].classList.remove("healed");
+        _this.element.getElementsByClassName("heal-text")[0].textContent = "";
+        clearInterval(_this.id);
+      }
+    },60);
   }
 
 }
@@ -225,11 +231,7 @@ function heroHeal(){
 
   // -----Hero治癒 start-----
   setTimeout(function() {
-    // hero.element.classList.add("healing");
     hero.heal(30); //呼叫治癒 增加30點hp
-    // setTimeout(function() {
-    //   // hero.element.classList.remove("healing");
-    // }, 500);
   }, 100);
   // -----Hero治癒 end-----
 
