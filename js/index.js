@@ -79,6 +79,16 @@ class Hero extends BaseCharacter {
     //受到攻擊後更新自己的血值
     this.updateHtml(this.hpElement, this.hurtElement);
   }
+  heal(plusHp){
+    this.hp+=plusHp;
+
+    //補血超過則滿血
+    if(this.hp > this.maxHp){
+      this.hp = this.maxHp;
+    } 
+    //更新html
+    this.updateHtml(this.hpElement, this.hurtElement);
+  }
 }
 
 
@@ -112,6 +122,13 @@ function addSkillEvent() {
     heroAttack(); 
     //點選攻擊按鈕後，進行攻擊，開始一回合
   }
+
+  var heal = document.getElementById("heal");
+  heal.onclick = function() {
+    heroHeal();
+    //點選治癒後，進行治癒，開始一回合
+  }
+
 }
 
 function endTurn() {
@@ -156,6 +173,8 @@ function heroAttack() {
     if (monster.alive){  //monster還沒死 就開始攻擊
       // -----Monster攻擊 start-----
       monster.element.classList.add("attacking")
+      //加入開始攻擊動畫，往前移動 0.5s
+
       setTimeout(function() {
         monster.attack(hero);
         monster.element.classList.remove("attacking");
@@ -176,6 +195,56 @@ function heroAttack() {
   }, 1100);
   // -----Monster攻擊 end-----
 }
+
+function heroHeal(){
+  // 1.英雄治癒
+  //   [第 0.1s] 後開始
+  //     治癒動畫 0.5s
+  // 2.怪物攻擊 
+  //   [第 0.7s] 後開始移動
+  //     [0.5s] 後開始攻擊
+  console.log("Hero healing!!");
+  console.log(` hero hp: ${hero.hp}`);
+  console.log(` monster hp: ${monster.hp}`);
+  //治癒時，隱藏skill block
+  document.getElementsByClassName("skill-block")[0].style.display = "none";
+
+  // -----Hero治癒 start-----
+  setTimeout(function() {
+    // hero.element.classList.add("healing");
+    hero.heal(30); //呼叫治癒 增加30點hp
+    // setTimeout(function() {
+    //   // hero.element.classList.remove("healing");
+    // }, 500);
+  }, 100);
+  // -----Hero治癒 end-----
+
+  // -----Monster攻擊 start-----
+  setTimeout(function() {
+    monster.element.classList.add("attacking");
+    //加入開始攻擊動畫，往前移動 0.5s
+    setTimeout(function() {
+      monster.attack(hero);
+      monster.element.classList.remove("attacking");
+      //monster攻擊事件完成，回合結束
+      endTurn();
+      //如果回合尚未結束，檢查hero是否gg
+      if (hero.alive == false) {
+        finish();
+      } else {
+        //回合結束後，顯示攻擊按鈕
+        document.getElementsByClassName("skill-block")[0].style.display = "block";
+      }
+    }, 500);
+  }, 700);
+
+}
+
+
+
+
+
+
 function finish() {
   var dialog = document.getElementById("dialog");
   //顯示結束的dialog
@@ -193,6 +262,6 @@ addSkillEvent();
 var round = 10;
 
 
-var hero = new Hero("Bernard", 100, 10);
-var monster = new Monster("Skeleton", 130, 50);
+var hero = new Hero("Bernard", 130, 30);
+var monster = new Monster("Skeleton", 130, 10);
 
