@@ -88,7 +88,21 @@ class Hero extends BaseCharacter {
     } 
     //更新html
     this.updateHtml(this.hpElement, this.hurtElement);
+
+    var _this = this;
+    var i = 1;
+
+    // 設定補血動畫
+    _this.element.getElementsByClassName("heal-text")[0].classList.add("healed");
+    _this.element.getElementsByClassName("heal-text")[0].innerHTML = plusHp;
+    setTimeout(function(){
+      //關閉補血動畫
+      _this.element.getElementsByClassName("heal-text")[0].classList.remove("healed");
+      _this.element.getElementsByClassName("heal-text")[0].textContent = "";
+      clearInterval(_this.id);
+      }, 500);
   }
+
 }
 
 

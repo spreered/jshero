@@ -139,6 +139,28 @@
 #monster-image-block .character-block .hurt-text.attacked {
   bottom: 150px;
 }
+/* 設定transition class */
+/* 給 .heal-text.attacked 使用*/
+#hero-image-block    .character-block .heal-text{
+  position: absolute;
+  font-size: 60px;
+  color: green;
+  width: 100%;
+  left: 0px;
+  bottom: 50px;
+  font-family: "Contrail One";
+  transition: bottom 500ms;
+}
+/* heal後，文字從50px 上升到 150px, 0.5秒 */
+#hero-image-block    .character-block .heal-text.healed {
+  bottom: 150px;
+}
+
+
+
+
+
+
 
 #hero-image-block .skill-block {
   position: relative;
