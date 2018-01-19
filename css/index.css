@@ -1,0 +1,188 @@
+#monster-image-block.clearfix {
+  overflow: auto;
+}
+
+/* 遊戲場景 */
+#screen {
+  position: relative;
+  width: 700px;
+  height: 300px;
+  margin: 0px auto;
+}
+
+#plane {
+  height: 100%;
+  text-align: center;
+}
+
+/* 人物垂直置中的 css hacking */
+#plane:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+}
+
+#header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+/* 回和數 div */
+#round-num {
+  position: absolute;
+  left: 325px;
+  top: -10px;
+  border-color: #0000FF;
+  border-style: solid;
+  border-width: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.hp-block {
+  width: 49.9%;
+  height: 50px;
+  display: inline-block;
+}
+
+.hp-bar {
+  margin-left: 5%;
+  width: 95%;
+  height: 30px;
+  background-color: red;
+}
+
+/* 扣血效果的白色區塊，蓋在紅色去塊上面 */
+/* 透過 hp/max-hp 算 width 百分比 */
+#hero-hp-hurt, #monster-hp-hurt{
+  float: right;
+  width: 0%;
+  height: 100%;
+  background-color: white;
+}
+
+/* 反轉hp-block, 讓扣寫效果從左到右 */
+.hero-hp-block {
+  transform: scaleX(-1);
+}
+
+/* 因為受 .hero-hp-block 反轉影響，要把文字反轉回來 */
+.hero-hp-block .hp-text {
+  transform: inherit;
+}
+
+.monster-hp-block {
+  margin-left: -4px;
+}
+
+.monster-hp-block .hp-text {
+  text-align: right;
+}
+
+.character-image {
+  width: 40%;
+}
+
+/* 設定transition class */
+/* 給 #hero-image-block.attacking 或 #monster-image-block.attacking 使用*/
+#hero-image-block, #monster-image-block {
+  position: relative;
+  transition: left 500ms, right 500ms;
+  display: inline-block;
+  width: 49%;
+}
+
+#hero-image-block {
+  left: 0px;
+}
+
+/* hero 往右邊移動 到離左200px的位置 */
+#hero-image-block.attacking {
+  left: 200px;
+}
+
+#monster-image-block {
+  right: 0px;
+}
+
+/* monster 往左邊移動 到離右200px的位置 */
+#monster-image-block.attacking {
+  right: 200px;
+}
+
+#hero-image-block    .character-block .effect-image,
+#monster-image-block .character-block .effect-image {
+  position: absolute;
+  left: 60px;
+  bottom: 0px;
+}
+
+/* 設定transition class */
+/* 給 .hurt-text.attacked 使用*/
+#hero-image-block    .character-block .hurt-text,
+#monster-image-block .character-block .hurt-text {
+  position: absolute;
+  font-size: 60px;
+  color: red;
+  width: 100%;
+  left: 0px;
+  bottom: 50px;
+  font-family: "Contrail One";
+  transition: bottom 500ms;
+}
+/* 攻擊後，文字從50px 上升到 150px, 0.5秒 */
+#hero-image-block    .character-block .hurt-text.attacked,
+#monster-image-block .character-block .hurt-text.attacked {
+  bottom: 150px;
+}
+
+#hero-image-block .skill-block {
+  position: relative;
+}
+
+#hero-image-block .skill-image {
+  width: 20%;
+}
+
+
+/* 設定 #monster-image-block .character-image 左右反轉 */
+#monster-image-block .character-image {
+  transform: scaleX(-1);
+}
+
+#dialog {
+  display: none;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  text-align: center;
+}
+
+/* 預設 .win-dialog 與 .lose-dialog 為關閉，及其他共用的CSS */
+#dialog .win-dialog,
+#dialog .lose-dialog {
+  display: none;
+  position: relative;
+  margin: 0 auto;
+  padding: 30px;
+  width: 200px;
+  top: 100px;
+  background: white;
+  border: 1px solid orange;
+}
+
+/* #dialog 同時有 win class 的話 把下面的win-block 打開 */
+#dialog.win .win-dialog {
+  display: block;
+}
+
+/* #dialog 同時有 lose class 的話 把下面的lose-block 打開 */
+#dialog.lose .lose-dialog {
+  display: block;
+}

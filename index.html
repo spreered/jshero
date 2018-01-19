@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Hero project</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Contrail One">
+  </head>
+  <body>
+  <!-- screen start -->
+  <div id="screen">
+    <!-- -----header start----- -->
+    <div id="header">
+       <!-- ===hero hp=== -->
+      <div class="hp-block hero-hp-block">
+        <div class="hp-bar">
+          <div id="hero-hp-hurt"></div>
+        </div>
+        <div class="hp-text">
+          <span id="hero-hp">130</span>/
+          <span id="hero-max-hp">130</span>
+        </div>
+      </div>
+
+      <div id="round-num">10</div>
+      <!-- ===monster hp=== -->
+      <div class="hp-block monster-hp-block">
+        <div class="hp-bar">
+          <div id="monster-hp-hurt"></div>
+        </div>
+        <div class="hp-text">
+          <span id="monster-hp">130</span>/
+          <span id="monster-max-hp">130</span>
+        </div>
+      </div>
+    </div>
+    <!-- screen end -->
+    
+
+
+
+    <!-- plane start -->  
+    <div id="plane">
+      <div id="hero-image-block">
+        <div class="skill-block">
+          <img src="images/skill.png" id="skill" class="skill-image"alt="">
+        </div> <!-- 英雄才有 -->
+        <div class="character-block">
+          <img src="images/hero.png" alt="" class="character-image">
+          <img src="" alt="" class="effect-image" style="display: none;">
+          <span class="hurt-text"></span>
+        </div>
+      </div>
+
+
+      <div id="monster-image-block">
+        <div class="character-block">
+          <img src="images/monster.png" alt="" class="character-image">
+          <img src="" alt="" class="effect-image" style="display: none;">
+          <span class="hurt-text"></span>
+        </div>    
+
+      </div>  
+    </div>
+    <!-- plane end -->
+
+    <!-- dialog start -->
+    <div id="dialog">
+      <div class="win-dialog">
+        <h2> 獲得勝利!！! </h2>
+        <button onclick="location.reload();"> 再玩一次? </button>
+      </div>
+      <div class="lose-dialog">
+        <h2> 你輸掉了! </h2>
+        <button onclick="location.reload();"> 再次挑戰? </button>
+      </div>
+    </div>
+    <!-- dialog end -->
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+  <script src="js/index.js"> </script>
+</html>
