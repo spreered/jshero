@@ -100,13 +100,15 @@ class Hero extends BaseCharacter {
       _this.element.getElementsByClassName("effect-image")[0].style.display = "block";
       _this.element.getElementsByClassName("effect-image")[0].src = 'images/effect/heal/'+ i +'.png';
       i++;
+      console.log("this_is.id: "+_this.id);
       if(i>8){
         _this.element.getElementsByClassName("effect-image")[0].style.display = "none";
         _this.element.getElementsByClassName("heal-text")[0].classList.remove("healed");
         _this.element.getElementsByClassName("heal-text")[0].textContent = "";
+        console.log(" close this_is.id: "+_this.id);
         clearInterval(_this.id);
       }
-    },60);
+    },50);
   }
 
 }
@@ -165,7 +167,7 @@ function endTurn() {
 function heroAttack() {
   console.log(` hero hp: ${hero.hp}`);
   console.log(` monster hp: ${monster.hp}`);
- 
+  turn = false;
   //這裡只會寫 移動的動畫(attacking)
   //斬擊動畫寫在getHurt()裡面
 
@@ -206,6 +208,7 @@ function heroAttack() {
         } else {
           //回合結束後，顯示攻擊按鈕
           document.getElementsByClassName("skill-block")[0].style.display = "block";
+          setTimeout(()=>{turn=true},500);
         }
       }, 500);
     } else {
@@ -223,6 +226,7 @@ function heroHeal(){
   // 2.怪物攻擊 
   //   [第 0.7s] 後開始移動
   //     [0.5s] 後開始攻擊
+  turn = false;
   console.log("Hero healing!!");
   console.log(` hero hp: ${hero.hp}`);
   console.log(` monster hp: ${monster.hp}`);
@@ -232,7 +236,7 @@ function heroHeal(){
   // -----Hero治癒 start-----
   setTimeout(function() {
     hero.heal(30); //呼叫治癒 增加30點hp
-  }, 100);
+  }, 200);
   // -----Hero治癒 end-----
 
   // -----Monster攻擊 start-----
@@ -250,16 +254,16 @@ function heroHeal(){
       } else {
         //回合結束後，顯示攻擊按鈕
         document.getElementsByClassName("skill-block")[0].style.display = "block";
+
+        //動畫結束後才開放keydown事件
+        //不然會有錯
+        setTimeout(()=>{turn=true},500);
+
       }
     }, 500);
   }, 700);
 
 }
-
-
-
-
-
 
 function finish() {
   var dialog = document.getElementById("dialog");
@@ -272,10 +276,31 @@ function finish() {
   }
 }
 
+function keyEvent(e){
+  var key = String.fromCharCode(event.keyCode);
+  if(turn){
+    switch (key){
+      case "A":
+      case "a":
+        heroAttack();
+        break;
+      case "D":
+      case "d":
+        heroHeal();
+        break;
+      default:
+    }
+  }
+}
+
+window.addEventListener("keydown",keyEvent);
 //綁定Skill的事件: 綁定hero攻擊鈕onclick，產生攻擊
 addSkillEvent();
+
+
 //設定攻擊回合數
 var round = 10;
+var turn = true;
 
 
 var hero = new Hero("Bernard", 130, 30);
